@@ -3,6 +3,7 @@ let noteText;
 let saveNoteBtn;
 let newNoteBtn;
 let noteList;
+let eachNote;
 
 if (window.location.pathname === '/notes') {
   noteTitle = document.querySelector('.note-title');
@@ -10,6 +11,9 @@ if (window.location.pathname === '/notes') {
   saveNoteBtn = document.querySelector('.save-note');
   newNoteBtn = document.querySelector('.new-note');
   noteList = document.querySelectorAll('.list-container .list-group');
+  
+  
+
 }
 
 // Show an element
@@ -26,6 +30,7 @@ const hide = (elem) => {
 let activeNote = {};
 
 const getNotes = () =>
+
   fetch('/api/notes', {
     method: 'GET',
     headers: {
@@ -168,7 +173,20 @@ const renderNoteList = async (notes) => {
   if (window.location.pathname === '/notes') {
     noteListItems.forEach((note) => noteList[0].append(note));
   }
+
+  // Populates right hand column
+  eachNote = document.getElementsByClassName("list-group-item");
+  for(var i = 0; i < eachNote.length; i++){
+    eachNote[i].addEventListener("click", function(){
+      console.log(this)
+
+    })
+  }
+ 
+  
 };
+
+
 
 // Gets notes from the db and renders them to the sidebar
 const getAndRenderNotes = () => getNotes().then(renderNoteList);
@@ -181,3 +199,4 @@ if (window.location.pathname === '/notes') {
 }
 
 getAndRenderNotes();
+
