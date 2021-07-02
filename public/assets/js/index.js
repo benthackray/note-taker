@@ -38,14 +38,18 @@ const getNotes = () =>
     },
   });
 
-const saveNote = (note) =>
+const saveNote = (note) => {
   fetch('/api/notes', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(note),
-  });
+  })
+  // added this to reload page after saving since it was not updating automatically
+  window.location.reload();
+}
+  ;
 
 const deleteNote = (id) =>
   fetch(`/api/notes/${id}`, {
@@ -178,12 +182,13 @@ const renderNoteList = async (notes) => {
   eachNote = document.getElementsByClassName("list-group-item");
   for(var i = 0; i < eachNote.length; i++){
     eachNote[i].addEventListener("click", function(){
-      console.log(this)
-
+      // the title and text of the note are within the dataset of the list element
+      let thisNote = JSON.parse(this.dataset.note);
+      // the value is what goes in the input
+      noteTitle.value = thisNote.title;
+      noteText.value = thisNote.text;
     })
   }
- 
-  
 };
 
 
