@@ -35,11 +35,13 @@ app.post('/api/notes', (req, res) =>{
             console.log(err)
         } else {
             console.log("Wrote")
-        }
-       
+        }  
     })
-   
-    // console.log(db);
+})
+
+
+app.delete('/api/notes', (req, res) => {
+    console.log(req.body);
 })
 
 
